@@ -1,0 +1,55 @@
+### get all villains
+GET http://localhost:8080/villains
+
+### get villain by id
+GET http://localhost:8080/villains/1
+
+### get villain by cirme level
+GET http://localhost:8080/villains/offense/MEDIUM
+
+### get villains by prison id
+GET http://localhost:8080/villains/getVillainsByPrisonId/3
+
+### find villains by offense id
+GET http://localhost:8080/villains/allVillainsByOffense/1
+
+### find villains by date of conviction
+GET http://localhost:8080/villains/allVillainsByDateOfConviction/16.11.1939
+
+### update villain
+PUT http://localhost:8080/villains/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Zbigniew",
+  "lastName": "zz",
+  "originCountry": "Poland",
+  "deposit": 2.02,
+  "dateOfConviction": "31.12.2022",
+  "alive": false,
+  "prison": {
+    "id": 2
+  },
+  "offense": {
+    "id": 2
+  }
+}
+
+### create villain
+POST http://localhost:8080/villains/
+Content-Type: application/json
+
+{
+  "firstName": "Tomasz",
+  "lastName": "Łacina",
+  "originCountry": "Wrocław",
+  "prison": 1,
+  "dateOfConviction": "23.05.2023",
+  "deposit": 9.99,
+  "alive": true,
+  "offense": 1
+}
+
+### delete villain
+DELETE http://localhost:8080/villains/4

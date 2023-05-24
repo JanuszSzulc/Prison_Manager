@@ -1,0 +1,16 @@
+### get transfers
+GET http://localhost:8080/transfers
+
+### create transfer
+POST http://localhost:8080/transfers/create
+Content-Type: application/json
+
+{
+        "villainId":1,
+        "prisonId":2,
+        "reason":"bo czemu nie"
+}
+
+
+###//        "executionStatus": true,
+###//        "transferDate": "24.05.2023"

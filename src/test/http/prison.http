@@ -1,0 +1,32 @@
+### get all prisons
+GET http://localhost:8080/prisons
+
+### get prison by id
+GET http://localhost:8080/prisons/
+
+### get prison by name
+GET http://localhost:8080/prisons/by-name/Atlanta
+
+### update prison
+PUT http://localhost:8080/prisons/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "New Prison",
+  "dateOpened": "01.01.1000",
+  "numberOfCells": 5
+}
+
+### create prison
+POST http://localhost:8080/prisons
+Content-Type: application/json
+
+{
+  "name": "Guantanamo",
+  "dateOpened": "11.02.2002",
+  "numberOfCells": 270
+}
+
+### delete prison
+DELETE http://localhost:8080/prisons/4

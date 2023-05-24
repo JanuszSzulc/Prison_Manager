@@ -1,0 +1,28 @@
+### get all offenses
+GET http://localhost:8080/offense
+
+### get offense by id
+GET http://localhost:8080/offense/1
+
+### update offense
+PUT http://localhost:8080/offense/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "level": "HIGH",
+  "description": "blah blah"
+}
+
+### create offense
+POST http://localhost:8080/offense
+Content-Type: application/json
+
+{
+  "id": 1,
+  "level": "MEDIUM",
+  "description": "he he"
+}
+
+### delete offense
+DELETE http://localhost:8080/offense/3
