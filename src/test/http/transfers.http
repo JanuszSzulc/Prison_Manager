@@ -6,9 +6,11 @@ POST http://localhost:8080/transfers/create
 Content-Type: application/json
 
 {
-        "villainId":1,
-        "prisonId":2,
-        "reason":"bo czemu nie"
+  "villainId": 1,
+  "prisonId": 3,
+  "reason": "bo czemu nie",
+  "executionStatus": true,
+  "transferDate": "24.05.2023"
 }
 
 

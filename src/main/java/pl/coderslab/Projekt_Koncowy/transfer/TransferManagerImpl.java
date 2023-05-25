@@ -2,12 +2,14 @@ package pl.coderslab.Projekt_Koncowy.transfer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.type.TrueFalseType;
 import org.springframework.stereotype.Service;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
 import pl.coderslab.Projekt_Koncowy.prison.PrisonRepository;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 import pl.coderslab.Projekt_Koncowy.villain.VillainRepository;
 
+import javax.validation.ValidationException;
 import java.util.*;
 
 @Service
@@ -43,16 +45,24 @@ public class TransferManagerImpl implements TransferManager {
                 .prisons(List.of(newPrison))
                 .build();
 
-        log.info("Start transfer...");
+        if (!transfer.isExecutionStatus()) {
+            throw new IllegalArgumentException("Transfer status must be true");
+        } else {
+            if (!transfer.getTransferDate().matches("^([0][1-9]|[1-2][0-9]|[3][0-1])\\.([0][1-9]|[1][0,1,2])\\.[1-9]{1}[0-9]{3}$")) {
+                throw new ValidationException("Transfer date must be in format dd.MM.yyyy");
+            }
+        }
+
+        log.info("Start transfer ...");
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 villain.setPrison(newPrison);
                 villainRepository.save(villain);
                 transferRepository.save(transfer);
+                log.info(String.format("Transfer %s added...", transfer.getId()));
             }
         }, 3000);
-        log.info("Transfer done...");
         return null;
     }
 }
