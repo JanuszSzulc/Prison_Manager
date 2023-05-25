@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
-
 @Entity
 @Table(name = "villains")
 @Getter
@@ -53,5 +52,4 @@ public class Villain {
     public void prePersist() {
         this.createdOn = LocalDateTime.now();
     }
-
 }

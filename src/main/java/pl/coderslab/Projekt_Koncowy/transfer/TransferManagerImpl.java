@@ -2,14 +2,12 @@ package pl.coderslab.Projekt_Koncowy.transfer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.type.TrueFalseType;
 import org.springframework.stereotype.Service;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
 import pl.coderslab.Projekt_Koncowy.prison.PrisonRepository;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 import pl.coderslab.Projekt_Koncowy.villain.VillainRepository;
 
-import javax.validation.ValidationException;
 import java.util.*;
 
 @Service
@@ -26,7 +24,13 @@ public class TransferManagerImpl implements TransferManager {
         return transferRepository.findAll().stream().map(mapper::map).toList();
     }
 
-    public Void addTransfer(TransferVillainRequest request) {
+    @Override
+    public TransferDto getById(Long id) {
+        Optional<Transfer> transfer = transferRepository.findById(id);
+        return mapper.map(transfer.orElseThrow(() -> new IllegalArgumentException("No transfer with id: " + id)));
+    }
+
+    public String addTransfer(TransferVillainRequest request) {
         Villain villain = villainRepository.findById(request.villainId())
                 .orElseThrow(() -> new NoSuchElementException("No villain with id: " + request.villainId()));
 
@@ -37,23 +41,16 @@ public class TransferManagerImpl implements TransferManager {
                 .orElseThrow(() -> new NoSuchElementException("No prison with id: " + request.prisonId()));
 
         Transfer transfer = Transfer.builder()
+                .villainId(villain.getId())
                 .destinationPrison(newPrison.getName())
                 .reason(request.reason())
-                .executionStatus(request.executionStatus())
-                .transferDate(request.transferDate())
+                .transferTime(request.transferTime())
                 .villain(List.of(villain))
                 .prisons(List.of(newPrison))
                 .build();
 
-        if (!transfer.isExecutionStatus()) {
-            throw new IllegalArgumentException("Transfer status must be true");
-        } else {
-            if (!transfer.getTransferDate().matches("^([0][1-9]|[1-2][0-9]|[3][0-1])\\.([0][1-9]|[1][0,1,2])\\.[1-9]{1}[0-9]{3}$")) {
-                throw new ValidationException("Transfer date must be in format dd.MM.yyyy");
-            }
-        }
-
         log.info("Start transfer ...");
+        long delayInSeconds = transfer.getTransferTime() * 1000;
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -62,7 +59,9 @@ public class TransferManagerImpl implements TransferManager {
                 transferRepository.save(transfer);
                 log.info(String.format("Transfer %s added...", transfer.getId()));
             }
-        }, 3000);
-        return null;
+        }, delayInSeconds);
+        transfer.setExecutionStatus(true);
+        return String.format("Transfer accepted for implementation. " +
+                "Approximate lead time is: %s seconds", transfer.getTransferTime());
     }
 }

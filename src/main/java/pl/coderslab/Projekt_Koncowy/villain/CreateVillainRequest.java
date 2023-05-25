@@ -3,7 +3,6 @@ package pl.coderslab.Projekt_Koncowy.villain;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
 public record CreateVillainRequest(
         Long id,
         @NotBlank

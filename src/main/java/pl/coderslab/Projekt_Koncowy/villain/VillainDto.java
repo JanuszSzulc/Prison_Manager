@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-
 public record VillainDto(Long id,
                          String firstName,
                          String lastName,
@@ -18,5 +17,4 @@ public record VillainDto(Long id,
                          Long offense,
                          Enum level,
                          String offenseDescription) {
-
 }

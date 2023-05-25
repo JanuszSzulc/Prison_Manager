@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Projekt_Koncowy.utils.ControllerUtil;
 import pl.coderslab.Projekt_Koncowy.utils.Wrapper;
 
@@ -26,10 +23,13 @@ public class TransferController {
     public ResponseEntity<Wrapper<List<TransferDto>>> getTransfers(){
         return ControllerUtil.handle(() -> transferManager.getAll());
     }
-
-    @PostMapping("/create")
-    public ResponseEntity<Wrapper<Void>> createTransfer(@RequestBody @Valid TransferVillainRequest request){
-        return ControllerUtil.handle(() -> transferManager.addTransfer(request));
+    @GetMapping("/{id}")
+    public ResponseEntity<Wrapper<TransferDto>> getTransfer(@PathVariable Long id) {
+        return ControllerUtil.handle(() -> transferManager.getById(id));
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<Wrapper<String>> createTransfer(@RequestBody @Valid TransferVillainRequest request){
+        return ControllerUtil.handle(() -> transferManager.addTransfer(request));
+    }
 }

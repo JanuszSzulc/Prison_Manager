@@ -5,7 +5,6 @@ import pl.coderslab.Projekt_Koncowy.prison.Prison;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +21,15 @@ public class Transfer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "villain_id")
+    private Long villainId;
     @Column(name = "destinaton_prison", nullable = false)
     private String destinationPrison;
     private String reason;
     @Column(name = "execution_status")
     private boolean executionStatus;
-    @Column(name = "transfer_date")
-    @Pattern(regexp = "^([0][1-9]|[1-2][0-9]|[3][0-1])\\.([0][1-9]|[1][0,1,2])\\.[1-9]{1}[0-9]{3}$"
-            , message = "Transfer date must be in format dd.MM.yyyy")
-    private String transferDate;
+    @Column(name = "transfer_time")
+    private long transferTime;
 
     @OneToMany(mappedBy = "transfer")
     @ToString.Exclude

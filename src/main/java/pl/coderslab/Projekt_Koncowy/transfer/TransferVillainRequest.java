@@ -6,6 +6,6 @@ public record TransferVillainRequest(
         Long prisonId,
         String reason,
         Boolean executionStatus,
-        String transferDate
+        long transferTime
 ) {
 }

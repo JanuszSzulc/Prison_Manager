@@ -1,9 +1,7 @@
 package pl.coderslab.Projekt_Koncowy.prison;
 
 import lombok.*;
-//import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+
 import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
@@ -34,16 +32,10 @@ public class Prison {
     @Column(name = "number_of_cells")
     private Integer numberOfCells;
 
-
     @OneToMany(mappedBy = "prison")
     @ToString.Exclude
     private List<Villain> villainList = new ArrayList<>();
 
-    public Prison(List<Villain> villains) {
-        this.villainList = villains;
-    }
-
     @ManyToOne
     private Transfer transfer;
-
 }

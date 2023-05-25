@@ -1,6 +1,5 @@
 package pl.coderslab.Projekt_Koncowy.villain;
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -84,7 +83,7 @@ public class VillainManagerImpl implements VillainManager {
                     villain.setDateOfConviction(request.dateOfConviction());
                     if (request.dateOfConviction() != null) {
                         if (!villain.getDateOfConviction().matches("^([0][1-9]|[1-2][0-9]|[3][0-1])\\.([0][1-9]|[1][0,1,2])\\.[1-9]{1}[0-9]{3}$")) {
-                            throw new ValidationException("Transfer date must be in format dd.MM.yyyy");
+                            throw new ValidationException("Date of conviction date must be in format dd.MM.yyyy");
                         }
                         villain.setDateOfConviction(request.dateOfConviction());
                     }

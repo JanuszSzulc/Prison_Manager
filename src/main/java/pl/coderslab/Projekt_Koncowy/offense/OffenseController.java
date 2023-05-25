@@ -6,11 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Projekt_Koncowy.utils.ControllerUtil;
 import pl.coderslab.Projekt_Koncowy.utils.Wrapper;
-import pl.coderslab.Projekt_Koncowy.villain.UpdateVillainParams;
-import pl.coderslab.Projekt_Koncowy.villain.VillainDto;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController

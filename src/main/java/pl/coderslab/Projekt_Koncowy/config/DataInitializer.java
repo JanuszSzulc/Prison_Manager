@@ -16,8 +16,6 @@ import pl.coderslab.Projekt_Koncowy.villain.Villain;
 import pl.coderslab.Projekt_Koncowy.villain.VillainRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 
 @Profile("local")
 @Component

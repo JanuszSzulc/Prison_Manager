@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultVillainMapper implements VillainMapper {
-
     @Override
     public VillainDto map(Villain villain) {
         return new VillainDto(villain.getId(),

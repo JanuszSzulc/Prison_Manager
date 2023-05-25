@@ -1,7 +1,6 @@
 package pl.coderslab.Projekt_Koncowy.offense;
 
 import lombok.*;
-import pl.coderslab.Projekt_Koncowy.prison.Prison;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
 import javax.persistence.*;

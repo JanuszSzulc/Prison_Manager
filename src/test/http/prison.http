@@ -2,7 +2,7 @@
 GET http://localhost:8080/prisons
 
 ### get prison by id
-GET http://localhost:8080/prisons/
+GET http://localhost:8080/prisons/1
 
 ### get prison by name
 GET http://localhost:8080/prisons/by-name/Atlanta
@@ -14,7 +14,7 @@ Content-Type: application/json
 {
   "id": 1,
   "name": "New Prison",
-  "dateOpened": "01.01.1000",
+  "dateOpened": "01.021.1000",
   "numberOfCells": 5
 }
 

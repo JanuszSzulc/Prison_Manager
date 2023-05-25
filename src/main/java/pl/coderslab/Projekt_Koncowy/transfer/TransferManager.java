@@ -5,6 +5,6 @@ import java.util.List;
 public interface TransferManager {
 
     List<TransferDto> getAll();
-    Void addTransfer(TransferVillainRequest request);
-
+    TransferDto getById(Long id);
+    String addTransfer(TransferVillainRequest request);
 }

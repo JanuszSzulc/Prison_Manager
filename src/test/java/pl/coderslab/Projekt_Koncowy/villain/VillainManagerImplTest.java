@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-class VillainServiceImplTest {
+class VillainManagerImplTest {
 
     @Mock
     VillainRepository villainRepository;

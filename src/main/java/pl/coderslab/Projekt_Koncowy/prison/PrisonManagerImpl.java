@@ -3,9 +3,8 @@ package pl.coderslab.Projekt_Koncowy.prison;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import pl.coderslab.Projekt_Koncowy.villain.Villain;
-import pl.coderslab.Projekt_Koncowy.villain.VillainDto;
 
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,10 +43,16 @@ public class PrisonManagerImpl implements PrisonManager {
                 .map(prison -> {
                     prison.setName(request.name());
                     if (request.name() != null) {
+                        if (prisonRepository.findByName(prison.getName()).isPresent()) {
+                            throw new IllegalArgumentException("Prison with this name already exist");
+                        }
                         prison.setName(request.name());
                     }
                     prison.setDateOpened(request.dateOpened());
                     if (request.dateOpened() != null) {
+                        if (!prison.getDateOpened().matches("^([0][1-9]|[1-2][0-9]|[3][0-1])\\.([0][1-9]|[1][0,1,2])\\.[1-9]{1}[0-9]{3}$")) {
+                            throw new ValidationException("Date opened date must be in format dd.MM.yyyy");
+                        }
                         prison.setDateOpened(request.dateOpened());
                     }
                     prison.setNumberOfCells(request.numberOfCells());
@@ -69,8 +74,12 @@ public class PrisonManagerImpl implements PrisonManager {
                         .dateOpened(request.dateOpened())
                         .numberOfCells(request.numberOfCells())
                         .build();
-        prisonRepository.save(prison);
-        return mapper.map(prison);
+        if (prisonRepository.findByName(prison.getName()).isPresent()) {
+            throw new IllegalArgumentException("Prison with this name already exist");
+        } else {
+            prisonRepository.save(prison);
+            return mapper.map(prison);
+        }
     }
 
     public PrisonDto delete(Long id) {

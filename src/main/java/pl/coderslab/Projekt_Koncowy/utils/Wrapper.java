@@ -9,5 +9,4 @@ public class Wrapper<T> {
 
     private final T object;
     private final String message;
-
 }
