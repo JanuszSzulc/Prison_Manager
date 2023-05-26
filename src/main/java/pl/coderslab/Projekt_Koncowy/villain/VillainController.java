@@ -73,7 +73,7 @@ public class VillainController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Wrapper<VillainDto>> delete(@PathVariable Long id) {
+    public ResponseEntity<Wrapper<VillainDto>> deleteVillain(@PathVariable Long id) {
         return ControllerUtil.handle(() -> villainManager.delete(id));
     }
 }

@@ -26,5 +26,4 @@ class PrisonRepositoryTest {
         assertThat(prison).isNotNull();
         assertThat(prison).isSameAs(prison);
     }
-
 }

@@ -26,7 +26,7 @@ Content-Type: application/json
   "lastName": "zz",
   "originCountry": "Poland",
   "deposit": 2.02,
-  "dateOfConviction": "31.122.2022",
+  "dateOfConviction": "31.12.2022",
   "alive": false,
   "prison": {
     "id": 2

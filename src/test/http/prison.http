@@ -14,7 +14,7 @@ Content-Type: application/json
 {
   "id": 1,
   "name": "New Prison",
-  "dateOpened": "01.021.1000",
+  "dateOpened": "01.01.1000",
   "numberOfCells": 5
 }
 

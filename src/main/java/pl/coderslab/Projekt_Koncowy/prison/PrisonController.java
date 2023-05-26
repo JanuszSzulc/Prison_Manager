@@ -44,7 +44,7 @@ public class PrisonController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Wrapper<PrisonDto>> delete(@PathVariable Long id) {
+    public ResponseEntity<Wrapper<PrisonDto>> deletePrison(@PathVariable Long id) {
         return ControllerUtil.handle(() -> prisonManager.delete(id));
     }
 }

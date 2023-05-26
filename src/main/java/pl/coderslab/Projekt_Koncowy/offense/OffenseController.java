@@ -28,7 +28,7 @@ public class OffenseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Wrapper<OffenseDto>> updateVillain(@RequestBody @Valid UpdateOffenseParams request) {
+    public ResponseEntity<Wrapper<OffenseDto>> updateOffense(@RequestBody @Valid UpdateOffenseParams request) {
         return ControllerUtil.handle(() -> offenseManager.update(request));
     }
 
@@ -38,7 +38,7 @@ public class OffenseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Wrapper<OffenseDto>> delete(@PathVariable Long id) {
+    public ResponseEntity<Wrapper<OffenseDto>> deleteOffense(@PathVariable Long id) {
         return ControllerUtil.handle(() -> offenseManager.delete(id));
     }
 }

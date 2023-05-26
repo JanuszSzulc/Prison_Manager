@@ -95,7 +95,6 @@ class VillainManagerImplTest {
                 .hasFieldOrPropertyWithValue("id", 2L);
         assertThat(offense)
                 .hasFieldOrPropertyWithValue("id", 101L);
-
     }
 
     @Test
@@ -131,7 +130,7 @@ class VillainManagerImplTest {
     }
 
     @Test
-    public void whenAddVillainToPrison_whilePrisonIsFull_fail() {
+    public void whenAddVillainToPrisonWhilePrisonIsFull_fail() {
         Prison prison = Prison.builder().id(1L).numberOfCells(0).villainList(List.of()).build();
         Mockito.when(prisonRepository.findById(1L)).thenReturn(Optional.of(prison));
 
@@ -144,5 +143,4 @@ class VillainManagerImplTest {
         assertThat(exception)
                 .hasMessageContaining("Cannot add new villain to the selected prison. The limit has been reached");
     }
-
 }

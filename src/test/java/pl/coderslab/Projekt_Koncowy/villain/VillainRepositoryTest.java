@@ -22,7 +22,7 @@ class VillainRepositoryTest {
     VillainRepository villainRepository;
 
     @Test
-    public void whenSearchVillainByPrison_thenFindOnlyFromGivenPrison() {
+    public void whenSearchVillainByPrisonThenFindOnlyFromGivenPrison() {
         Prison prison = entityManager.find(Prison.class, 100L);
 
         List<Villain> villainList = this.villainRepository.findAllByPrisonId(prison.getId());
@@ -32,7 +32,7 @@ class VillainRepositoryTest {
     }
 
     @Test
-    public void whenSearchForVillainByOffenseLevel_thenFindOnlyFromGivenLevel() {
+    public void whenSearchForVillainByOffenseLevelThenFindOnlyFromGivenLevel() {
         Offense offense = entityManager.find(Offense.class, 120L);
 
         List<Villain> villainList = this.villainRepository.findAllByOffenseLevel(offense.getLevel());
@@ -42,7 +42,7 @@ class VillainRepositoryTest {
     }
 
     @Test
-    public void whenSearchForVillainByOffenseId_thenFindOnlyFromGivenId() {
+    public void whenSearchForVillainByOffenseIdThenFindOnlyFromGivenId() {
         Offense offense = entityManager.find(Offense.class, 110L);
 
         List<Villain> villainList = this.villainRepository.findByOffenseId(offense.getId());
@@ -51,13 +51,4 @@ class VillainRepositoryTest {
         assertThat(villainList.get(0)).hasFieldOrPropertyWithValue("id", 100L);
         assertThat(villainList.get(1)).hasFieldOrPropertyWithValue("id", 200L);
     }
-//    @Test
-//    public void whenSearchForVillainByDateOfConviction_thenFindWithEqualOrGreaterValue() {
-//
-//        List<Villain> villainList = this.villainRepository.findByDateOfConvictionGreaterThanEqual("31.12.1960");
-//        assertThat(villainList).hasSize(2);
-//        assertThat(villainList.get(0)).isNotNull();
-//        assertThat(villainList.get(0)).hasFieldOrPropertyWithValue("date_of_conviction", "31.12.1960");
-//        assertThat(villainList.get(1)).hasFieldOrPropertyWithValue("date_of_conviction", "17.02.1941");
-//    }
 }

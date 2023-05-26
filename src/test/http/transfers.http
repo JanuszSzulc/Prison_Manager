@@ -14,7 +14,3 @@ Content-Type: application/json
   "reason": "bo czemu nie",
   "transferTime": 10
 }
-
-
-###//        "executionStatus": true,
-###//        "transferDate": "24.05.2023"
