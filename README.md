@@ -10,7 +10,7 @@ and editing prisons, and planning and executing prisoner transfers.
 The application also enables searching for prisoners based on different criteria 
 such as the date of the offense or the prisons they are assigned to.
 
-The application is implemented using Java (JDK19) and the Spring framework for the backend layer.
+The application is implemented using Java (JDK v19) and the Spring framework for the backend layer.
 It also utilizes the Hibernate library for object-relational mapping and data validation.
 The data is stored in a database, and communication with the frontend is done through a REST API interface.
 The application is designed with a focus on usability, performance, and data security.
