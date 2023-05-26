@@ -31,14 +31,18 @@ public class TransferManagerImpl implements TransferManager {
     }
 
     public String addTransfer(TransferVillainRequest request) {
-        Villain villain = villainRepository.findById(request.villainId())
-                .orElseThrow(() -> new NoSuchElementException("No villain with id: " + request.villainId()));
+        Villain villain = villainRepository
+                .findById(request.villainId())
+                .orElseThrow(
+                        () -> new NoSuchElementException("No villain with id: " + request.villainId()));
 
         if (villain.getPrison().getId().equals(request.prisonId()))
             throw new IllegalArgumentException("Villain is already in the this prison");
 
-        Prison newPrison = prisonRepository.findById(request.prisonId())
-                .orElseThrow(() -> new NoSuchElementException("No prison with id: " + request.prisonId()));
+        Prison newPrison = prisonRepository
+                .findById(request.prisonId())
+                .orElseThrow(
+                        () -> new NoSuchElementException("No prison with id: " + request.prisonId()));
 
         Transfer transfer = Transfer.builder()
                 .villainId(villain.getId())

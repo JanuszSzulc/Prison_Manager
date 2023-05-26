@@ -4,14 +4,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.jdbc.Sql;
 import pl.coderslab.Projekt_Koncowy.offense.Offense;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @DataJpaTest
+@Sql
 class VillainRepositoryTest {
 
     @Autowired
@@ -20,22 +22,42 @@ class VillainRepositoryTest {
     VillainRepository villainRepository;
 
     @Test
-    public void whenSearchVillainByPrisonThenFindOnlyFromGivenPrison() {
-        Prison prison = Prison.builder().id(1L).name("prison1").numberOfCells(1).transfer(null).build();
-        entityManager.persist(prison);
-        Offense offense = Offense.builder().id(101L).build();
-        entityManager.persist(offense);
-        Villain villain = Villain.builder().id(1L).firstName("name1").prison(prison).offense(offense).build();
-        entityManager.persist(villain);
+    public void whenSearchVillainByPrison_thenFindOnlyFromGivenPrison() {
+        Prison prison = entityManager.find(Prison.class, 100L);
 
-        Prison prison1 = Prison.builder().id(2L).name("prison2").numberOfCells(2).villainList(List.of()).build();
-        entityManager.persist(prison1);
-        Offense offense1 = Offense.builder().id(202L).build();
-        entityManager.persist(offense1);
-        Villain villain1 = Villain.builder().firstName("name2").prison(prison1).offense(offense1).build();
-        entityManager.persist(villain1);
-
-
+        List<Villain> villainList = this.villainRepository.findAllByPrisonId(prison.getId());
+        assertThat(villainList).hasSize(2);
+        assertThat(villainList.get(0)).isNotNull();
+        assertThat(villainList.get(0)).hasFieldOrPropertyWithValue("id", 100L);
     }
 
+    @Test
+    public void whenSearchForVillainByOffenseLevel_thenFindOnlyFromGivenLevel() {
+        Offense offense = entityManager.find(Offense.class, 120L);
+
+        List<Villain> villainList = this.villainRepository.findAllByOffenseLevel(offense.getLevel());
+        assertThat(villainList).hasSize(1);
+        assertThat(villainList.get(0)).isNotNull();
+        assertThat(villainList.get(0)).hasFieldOrPropertyWithValue("id", 300L);
+    }
+
+    @Test
+    public void whenSearchForVillainByOffenseId_thenFindOnlyFromGivenId() {
+        Offense offense = entityManager.find(Offense.class, 110L);
+
+        List<Villain> villainList = this.villainRepository.findByOffenseId(offense.getId());
+        assertThat(villainList).hasSize(2);
+        assertThat(villainList.get(0)).isNotNull();
+        assertThat(villainList.get(0)).hasFieldOrPropertyWithValue("id", 100L);
+        assertThat(villainList.get(1)).hasFieldOrPropertyWithValue("id", 200L);
+    }
+//    @Test
+//    public void whenSearchForVillainByDateOfConviction_thenFindWithEqualOrGreaterValue() {
+//
+//        List<Villain> villainList = this.villainRepository.findByDateOfConvictionGreaterThanEqual("31.12.1960");
+//        assertThat(villainList).hasSize(2);
+//        assertThat(villainList.get(0)).isNotNull();
+//        assertThat(villainList.get(0)).hasFieldOrPropertyWithValue("date_of_conviction", "31.12.1960");
+//        assertThat(villainList.get(1)).hasFieldOrPropertyWithValue("date_of_conviction", "17.02.1941");
+//    }
 }

@@ -15,8 +15,8 @@ public interface VillainRepository extends JpaRepository<Villain, Long> {
 
     List<Villain> findAllByOffenseLevel(OffenseLevel level);
 
-    @Query(value = "select v from Villain v where v.dateOfConviction >= :date")
-    List<Villain> findByDateOfConviction(String date);
+//    @Query(value = "select v from Villain v where v.dateOfConviction >= :date")
+    List<Villain> findByDateOfConvictionGreaterThanEqual(String date);
 
     List<Villain> findByOffenseId(Long id);
 }

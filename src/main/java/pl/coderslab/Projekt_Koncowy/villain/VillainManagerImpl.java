@@ -50,7 +50,7 @@ public class VillainManagerImpl implements VillainManager {
     @Override
     public List<VillainDto> getVillainsByDateOfConviction(String date) {
         if (date == null) throw new IllegalArgumentException("Date cannot be null");
-        return villainRepository.findByDateOfConviction(date).stream().map(mapper::map).toList();
+        return villainRepository.findByDateOfConvictionGreaterThanEqual(date).stream().map(mapper::map).toList();
     }
 
     @Override

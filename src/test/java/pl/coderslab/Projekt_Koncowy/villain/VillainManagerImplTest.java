@@ -23,22 +23,16 @@ class VillainManagerImplTest {
 
     @Mock
     VillainRepository villainRepository;
-
     @Mock
     PrisonRepository prisonRepository;
-
     @Mock
     TransferRepository transferRepository;
-
     @Mock
     OffenseRepository offenseRepository;
-
     @Mock
     DefaultVillainMapper defaultVillainMapper;
-
     @InjectMocks
-    VillainManagerImpl villainService;
-
+    VillainManagerImpl villainManagerImpl;
 
     @Test
     public void getVillainWithNonExistingId(){
@@ -46,7 +40,7 @@ class VillainManagerImplTest {
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> villainService.getById(100L)
+                () -> villainManagerImpl.getById(100L)
         );
         assertEquals("No villain with id: 100", exception.getMessage());
     }
@@ -55,7 +49,7 @@ class VillainManagerImplTest {
     public void createVillainWithNonExistingPrison(){
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () ->
-                        villainService.create(
+                        villainManagerImpl.create(
                                 new CreateVillainRequest(1L,"name", "lastName", "country",
                                         2L, "01.01.2022", 100.55, true,
                                         101L, "robbery")));
@@ -70,7 +64,7 @@ class VillainManagerImplTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () ->
-                        villainService.create(
+                        villainManagerImpl.create(
                                 new CreateVillainRequest(1L,"name", "lastName", "country",
                                         2L, "01.01.2022", 100.55, true,
                                         101L, "robbery")));
@@ -82,7 +76,7 @@ class VillainManagerImplTest {
     public void createVillain() {
         Prison prison = Prison.builder().id(2L).name("prison").numberOfCells(1).villainList(List.of()).build();
         Offense offense = Offense.builder().id(101L).build();
-        Villain villain = Villain.builder().firstName("name").lastName("lastName")
+    Villain villain = Villain.builder().firstName("name").lastName("lastName")
                 .prison(prison)
                 .offense(offense)
                 .build();
@@ -90,7 +84,7 @@ class VillainManagerImplTest {
         Mockito.when(prisonRepository.findById(2L)).thenReturn(Optional.ofNullable(prison));
         Mockito.when(offenseRepository.findById(101L)).thenReturn(Optional.ofNullable(offense));
 
-        villainService.create(new CreateVillainRequest(1L,"name", "lastName", "country",
+        villainManagerImpl.create(new CreateVillainRequest(1L,"name", "lastName", "country",
                 2L, "01.01.2022", 100.55, true,
                 101L, "robbery"));
 
@@ -112,7 +106,7 @@ class VillainManagerImplTest {
         Mockito.when(prisonRepository.findById(2L)).thenReturn(Optional.of(prison));
         Mockito.when(offenseRepository.findById(101L)).thenReturn(Optional.of(offense));
 
-        villainService.create(new CreateVillainRequest(1L,"name", "lastName", "country",
+        villainManagerImpl.create(new CreateVillainRequest(1L,"name", "lastName", "country",
                 2L, "01.01.2022", 100.55, true,
                 101L, "robbery"));
 
@@ -128,7 +122,7 @@ class VillainManagerImplTest {
         Mockito.when(prisonRepository.findById(5L)).thenReturn(Optional.of(prison));
         Mockito.when(offenseRepository.findById(101L)).thenReturn(Optional.of(offense));
 
-        villainService.create(new CreateVillainRequest(1L,"name", "lastName", "country",
+        villainManagerImpl.create(new CreateVillainRequest(1L,"name", "lastName", "country",
                 5L, "01.01.2022", 100.55, true,
                 101L, "robbery"));
 
@@ -143,7 +137,7 @@ class VillainManagerImplTest {
 
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () ->
-                        villainService.create(
+                        villainManagerImpl.create(
                                 new CreateVillainRequest(1L, "firstName", "lastName",
                                         "country", 1L, "01.01.2022", 100.55,
                                         true, 101L,"robbery")));
